@@ -16,4 +16,15 @@
     <string name="registrar">Registrar</string>
     <string name="iniciar_sesion">Iniciar sesión</string>
     <string name="registrarse">Registrarse</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_mis_libros">Mis libros</string>
+    <string name="title_favoritos">Favoritos</string>
+    <string name="title_libreria">Libreria</string>
+    <string name="title_perfil">Mi perfil</string>
+    <string name="nuevo_libro">Nuevo libro</string>
+    <string name="nombre_libro">Nombre del libro</string>
+    <string name="autor_libro">Autor</string>
+    <string name="paginas">Número de páginas</string>
+    <string name="generos_literarios_libro">Genero literario</string>
+    <string name="guardar_libro">Guardar libro</string>
 </resources>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_mis_libros">
+
+    <fragment
+        android:id="@+id/navigation_mis_libros"
+        android:name="com.edwinacubillos.librosapp.ui.mislibros.MisLibrosFragment"
+        android:label="@string/title_mis_libros"
+        tools:layout="@layout/fragment_mis_libros" >
+        <action
+            android:id="@+id/action_navigation_mis_libros_to_nuevoLibroFragment"
+            app:destination="@id/navigation_nuevo_libro" />
+        <argument
+            android:name="libro"
+            app:argType="com.edwinacubillos.librosapp.local.Libro"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_favoritos"
+        android:name="com.edwinacubillos.librosapp.ui.favoritos.FavoritosFragment"
+        android:label="@string/title_favoritos"
+        tools:layout="@layout/fragment_favoritos" />
+
+    <fragment
+        android:id="@+id/navigation_libreria"
+        android:name="com.edwinacubillos.librosapp.ui.libreria.LibreriaFragment"
+        android:label="@string/title_libreria"
+        tools:layout="@layout/fragment_libreria" />
+
+    <fragment
+        android:id="@+id/navigation_mi_perfil"
+        android:name="com.edwinacubillos.librosapp.ui.miperfil.MiPerfilFragment"
+        android:label="@string/title_perfil"
+        tools:layout="@layout/fragment_mi_perfil" />
+    <fragment
+        android:id="@+id/navigation_nuevo_libro"
+        android:name="com.edwinacubillos.librosapp.ui.nuevolibro.NuevoLibroFragment"
+        android:label="@string/nuevo_libro"
+        tools:layout="@layout/fragment_nuevo_libro" >
+        <action
+            android:id="@+id/action_navigation_nuevo_libro_to_navigation_mis_libros"
+            app:destination="@id/navigation_mis_libros" />
+    </fragment>
+</navigation>
