@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Libros App</string>
+    <string name="nombre_de_usuario">Nombre de usuario</string>
+    <string name="correo_electronico">Correo electrónico</string>
+    <string name="digite_contrasena">Digite Contraseña</string>
+    <string name="rep_password">Repita la contraseña</string>
+    <string name="masculino">Masculino</string>
+    <string name="femenino">Femenino</string>
+    <string name="generos_literarios">Géneros literarios favoritos</string>
+    <string name="accion">Acción</string>
+    <string name="aventura">Aventura</string>
+    <string name="fantasia">Fantasia</string>
+    <string name="romance">Romance</string>
+    <string name="suspenso">Suspenso</string>
+    <string name="terror">Terror</string>
+    <string name="registrar">Registrar</string>
+    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="registrarse">Registrarse</string>
+</resources>
