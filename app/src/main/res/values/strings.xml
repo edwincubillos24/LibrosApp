@@ -27,4 +27,9 @@
     <string name="paginas">Número de páginas</string>
     <string name="generos_literarios_libro">Genero literario</string>
     <string name="guardar_libro">Guardar libro</string>
+    <string name="ejemplo_nombre">El sicoanalista</string>
+    <string name="ejemplo_puntaje">5.0</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="ejemplo_autor">John Katzenbach</string>
 </resources>

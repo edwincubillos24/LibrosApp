@@ -6,37 +6,44 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.edwinacubillos.librosapp.databinding.FragmentLibreriaBinding
+import com.edwinacubillos.librosapp.server.model.Book
 
 class LibreriaFragment : Fragment() {
 
-    private var libreriaBinding: FragmentLibreriaBinding? = null
+    private lateinit var libreriaBinding: FragmentLibreriaBinding
+    private lateinit var libreriaViewModel: LibreriaViewModel
+    private lateinit var libreriaAdapter: LibreriaAdapter
+    private var libreriaList: ArrayList<Book> = ArrayList()
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = libreriaBinding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val libreriaViewModel =
-            ViewModelProvider(this).get(LibreriaViewModel::class.java)
+    override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
 
         libreriaBinding = FragmentLibreriaBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        val root: View = libreriaBinding.root
 
-        val textView: TextView = binding.textNotifications
-        libreriaViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        libreriaViewModel = ViewModelProvider(this)[LibreriaViewModel::class.java]
+
+        libreriaAdapter = LibreriaAdapter(libreriaList)
+
+        libreriaBinding.libreriaRecyclerView.apply{
+            layoutManager = LinearLayoutManager(this@LibreriaFragment.requireContext())
+            adapter = libreriaAdapter
+            setHasFixedSize(false)
         }
+
+        libreriaViewModel.obtenerLibros()
+
+        val librosCargadosObserver = Observer<ArrayList<Book>> { listaLibros ->
+            libreriaList = listaLibros
+            libreriaAdapter.appendItems(libreriaList)
+        }
+
+        libreriaViewModel.librosCargados.observe(viewLifecycleOwner, librosCargadosObserver)
+
         return root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        libreriaBinding = null
-    }
 }

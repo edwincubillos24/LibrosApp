@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.edwinacubillos.librosapp.databinding.FragmentNuevoLibroBinding
-import com.edwinacubillos.librosapp.local.Libro
 
 class NuevoLibroFragment : Fragment() {
 
@@ -19,13 +19,19 @@ class NuevoLibroFragment : Fragment() {
         nuevoLibroBinding = FragmentNuevoLibroBinding.inflate(inflater, container, false)
         val root: View = nuevoLibroBinding.root
 
-        val nuevoLibroViewModel = ViewModelProvider(this)[NuevoLibroViewModel::class.java]
+        nuevoLibroViewModel = ViewModelProvider(this)[NuevoLibroViewModel::class.java]
 
-        with(nuevoLibroBinding){
+        val errorMsgObserver = Observer<String> { errorMsg ->
+            Toast.makeText(requireContext(), errorMsg, Toast.LENGTH_SHORT).show()
+        }
+
+        nuevoLibroViewModel.errorMsg.observe(viewLifecycleOwner, errorMsgObserver)
+
+        with(nuevoLibroBinding) {
             guardarButton.setOnClickListener {
                 val nombre = nombreEditText.text.toString()
                 val autor = autorEditText.text.toString()
-                val paginas = paginasEditText.text.toString().toInt()
+                val paginas = if (paginasEditText.text.toString().isEmpty()) 0 else paginasEditText.text.toString().toInt()
                 val puntaje = puntajeRatingBar.rating.toDouble()
                 var generos = ""
                 if (accionCheckBox.isChecked) generos = "Acción"
@@ -35,9 +41,9 @@ class NuevoLibroFragment : Fragment() {
                 if (suspensoCheckBox.isChecked) generos = generos + " Suspenso"
                 if (terrorCheckBox.isChecked) generos = generos + " Terror"
 
-                val libro = Libro(nombre, autor, paginas, puntaje, generos)
+                nuevoLibroViewModel.validarDatos(nombre, autor, paginas, puntaje, generos)
 
-                findNavController().navigate(NuevoLibroFragmentDirections.actionNavigationNuevoLibroToNavigationMisLibros(libro))
+                //    findNavController().navigate(NuevoLibroFragmentDirections.actionNavigationNuevoLibroToNavigationMisLibros(libro))
             }
         }
 
