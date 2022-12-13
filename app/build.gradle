@@ -3,16 +3,17 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
 }
 
 android {
     namespace 'com.edwinacubillos.librosapp'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.edwinacubillos.librosapp"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -38,9 +39,11 @@ android {
     buildFeatures {
         viewBinding true
     }
+    buildToolsVersion '32.0.0 rc1'
 }
 
 dependencies {
+    implementation 'com.google.firebase:firebase-auth-ktx:21.1.0'
     def room_version = "2.4.3"
 
     implementation "androidx.room:room-runtime:$room_version"
@@ -54,7 +57,7 @@ dependencies {
 
     implementation 'com.squareup.picasso:picasso:2.71828'
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'

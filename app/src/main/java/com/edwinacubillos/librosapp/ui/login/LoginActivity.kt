@@ -16,8 +16,6 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginBinding : ActivityLoginBinding
     private lateinit var loginViewModel: LoginViewModel
-    private var correoRegistrado = ""
-    private var passwordRegistrado = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,23 +45,15 @@ class LoginActivity : AppCompatActivity() {
                 val correo = correoEditText.text.toString()
                 val password = passwordEditText.text.toString()
 
-                loginViewModel.validarDatos(correo, correoRegistrado, password, passwordRegistrado)
+                loginViewModel.validarDatos(correo, password)
             }
 
             registrarButton.setOnClickListener {
-                startForResult.launch(Intent(this@LoginActivity, RegistroActivity::class.java))
+                val intent = Intent(this@LoginActivity, RegistroActivity::class.java)
+                startActivity(intent)
             }
         }
     }
-
-    val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
-        if (result.resultCode == Activity.RESULT_OK){
-            val intent = result.data
-            correoRegistrado = intent!!.extras!!.getString("correo").toString()
-            passwordRegistrado = intent.extras!!.getString("password").toString()
-        }
-    }
-
 }
 
 

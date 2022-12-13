@@ -1,9 +1,6 @@
 package com.edwinacubillos.librosapp.ui.registro
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -27,11 +24,7 @@ class RegistroActivity : AppCompatActivity() {
         setContentView(view)
 
         val passwordObserver = Observer<Boolean> { esValido ->
-            val intent = Intent()
-            intent.putExtra("correo", correo)
-            intent.putExtra("password", password)
-            setResult(Activity.RESULT_OK, intent)
-            finish()
+            onBackPressedDispatcher.onBackPressed()
         }
 
         registroViewModel.passwordsValidos.observe(this, passwordObserver)
@@ -59,8 +52,6 @@ class RegistroActivity : AppCompatActivity() {
                 val esRomance = romanceCheckBox.isChecked
                 val esSuspenso = suspensoCheckBox.isChecked
                 val esTerror = terrorCheckBox.isChecked
-
-                Log.d("datos", nombre + correo + password + genero + esTerror)
 
                 registroViewModel.validarCampos(nombre, correo, password, repPassword)
             }
