@@ -32,4 +32,18 @@
     <string name="aceptar">Aceptar</string>
     <string name="cancelar">Cancelar</string>
     <string name="ejemplo_autor">John Katzenbach</string>
+    <string name="ejemplo_nombre_usuario">John Doe</string>
+    <string name="ejemplo_correo">john_doe@gmail.com</string>
+    <string name="ejemplo_genero">Género: Masculino</string>
+    <string name="ejemplo_generos_favoritos">Suspenso Terror</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
+    <string name="ejemplo_nombre_tienda">Libreria Nacional</string>
+    <string name="ejemplo_horario">Lunes a Viernes 7:00 a 5:00</string>
+    <string name="title_tiendas">Tiendas</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="ejemplo_direccion">Av. El Poblado #6 Sur 15 Local 3288, El Poblado, Medellín, El Poblado, Medellín, Antioquia</string>
+    <string name="ejemplo_telefono">64578451</string>
+    <string name="ejemplo_resena">Reseña: 5.0</string>
+    <string name="title_detalle_tienda">Datos de la tienda</string>
+    <string name="title_maps">Mapa</string>
 </resources>

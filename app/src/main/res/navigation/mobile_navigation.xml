@@ -46,4 +46,38 @@
             android:id="@+id/action_navigation_nuevo_libro_to_navigation_mis_libros"
             app:destination="@id/navigation_mis_libros" />
     </fragment>
+    <fragment
+        android:id="@+id/navigation_tiendas"
+        android:name="com.edwinacubillos.librosapp.ui.tiendas.TiendasFragment"
+        android:label="@string/title_tiendas"
+        tools:layout="@layout/fragment_tiendas" >
+        <action
+            android:id="@+id/action_navigation_tiendas_to_navigation_detalle_tienda"
+            app:destination="@id/navigation_detalle_tienda" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_detalle_tienda"
+        android:name="com.edwinacubillos.librosapp.ui.detalletienda.DetalleTiendaFragment"
+        android:label="@string/title_detalle_tienda"
+        tools:layout="@layout/fragment_detalle_tienda" >
+        <argument
+            android:name="tienda"
+            app:argType="com.edwinacubillos.librosapp.firebase.model.Tienda"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_navigation_detalle_tienda_to_navigation_map"
+            app:destination="@id/navigation_map" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_map"
+        android:name="com.edwinacubillos.librosapp.ui.maps.MapsFragment"
+        android:label="@string/title_maps"
+        tools:layout="@layout/fragment_maps">
+        <argument
+            android:name="tienda"
+            android:defaultValue="@null"
+            app:argType="com.edwinacubillos.librosapp.firebase.model.Tienda"
+            app:nullable="true" />
+    </fragment>
 </navigation>

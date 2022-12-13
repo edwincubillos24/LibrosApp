@@ -23,11 +23,11 @@ class RegistroActivity : AppCompatActivity() {
 
         setContentView(view)
 
-        val passwordObserver = Observer<Boolean> { esValido ->
+        val creacionUsuarioExitosaObserver = Observer<Boolean> { esValido ->
             onBackPressedDispatcher.onBackPressed()
         }
 
-        registroViewModel.passwordsValidos.observe(this, passwordObserver)
+        registroViewModel.creacionUsuarioExitosa.observe(this, creacionUsuarioExitosaObserver)
 
         val errorMsgObserver = Observer<String> { errorMsg ->
             Toast.makeText(this, errorMsg, Toast.LENGTH_SHORT).show()
@@ -46,14 +46,15 @@ class RegistroActivity : AppCompatActivity() {
                     "Masculino"
                 else
                     "Femenino"
-                val esAccion = accionCheckBox.isChecked
-                val esAventura = aventuraCheckBox.isChecked
-                val esFantasia = fantasiaCheckBox.isChecked
-                val esRomance = romanceCheckBox.isChecked
-                val esSuspenso = suspensoCheckBox.isChecked
-                val esTerror = terrorCheckBox.isChecked
+                var generosFavoritos = ""
+                if (accionCheckBox.isChecked) generosFavoritos = "Acción "
+                if (aventuraCheckBox.isChecked) generosFavoritos = generosFavoritos + "Aventura "
+                if (fantasiaCheckBox.isChecked) generosFavoritos = generosFavoritos + "Fantasia "
+                if (romanceCheckBox.isChecked) generosFavoritos = generosFavoritos + "Romance "
+                if (suspensoCheckBox.isChecked) generosFavoritos = generosFavoritos + "Suspenso"
+                if (terrorCheckBox.isChecked) generosFavoritos = generosFavoritos + "Terror"
 
-                registroViewModel.validarCampos(nombre, correo, password, repPassword)
+                registroViewModel.validarCampos(nombre, correo, password, repPassword, genero, generosFavoritos)
             }
         }
     }

@@ -7,9 +7,9 @@
         android:title="@string/title_mis_libros" />
 
     <item
-        android:id="@+id/navigation_favoritos"
+        android:id="@+id/navigation_tiendas"
         android:icon="@drawable/ic_favorito"
-        android:title="@string/title_favoritos" />
+        android:title="@string/title_tiendas" />
 
     <item
         android:id="@+id/navigation_libreria"

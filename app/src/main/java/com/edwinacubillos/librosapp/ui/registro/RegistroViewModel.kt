@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.edwinacubillos.librosapp.firebase.ResourceRemote
 import com.edwinacubillos.librosapp.firebase.UserRepository
+import com.edwinacubillos.librosapp.firebase.model.Usuario
 import emailValidator
 import kotlinx.coroutines.launch
 import passwordValidator
@@ -13,7 +14,7 @@ class RegistroViewModel : ViewModel() {
 
     val userRepository = UserRepository()
 
-    val passwordsValidos: MutableLiveData<Boolean> by lazy {
+    val creacionUsuarioExitosa: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
     }
 
@@ -21,7 +22,7 @@ class RegistroViewModel : ViewModel() {
         MutableLiveData<String>()
     }
 
-    fun validarCampos(nombre: String, correo: String, password: String, repPassword: String) {
+    fun validarCampos(nombre: String, correo: String, password: String, repPassword: String, genero: String, generosFavoritos: String) {
         if (nombre.isEmpty() || correo.isEmpty() || password.isEmpty() || repPassword.isEmpty())
             errorMsg.value = "Debe digitar todos los campos"
         else {
@@ -39,7 +40,7 @@ class RegistroViewModel : ViewModel() {
                             result.let { resourceRemote ->
                                 when (resourceRemote) {
                                     is ResourceRemote.Success -> {
-                                        passwordsValidos.postValue(true)
+                                        crearUsuario(result.data, nombre, correo, genero, generosFavoritos)
                                     }
                                     is ResourceRemote.Error -> {
                                         var msg = result.message
@@ -55,6 +56,30 @@ class RegistroViewModel : ViewModel() {
                                 }
                             }
                         }
+        }
+    }
+
+    private fun crearUsuario(uid: String?, nombre: String, correo: String, genero: String, generosFavoritos: String) {
+        viewModelScope.launch {
+            val usuario = Usuario(uid = uid, nombre = nombre, correo = correo, genero = genero, generosFavoritos = generosFavoritos)
+            val result = userRepository.crearUsuario(usuario)
+            result.let { resourceRemote ->
+                when (resourceRemote) {
+                    is ResourceRemote.Success -> {
+                        creacionUsuarioExitosa.postValue(true)
+                    }
+                    is ResourceRemote.Error -> {
+                        var msg = result.message
+                        when (result.message) {
+                            "A network error (such as timeout, interrupted connection or unreachable host) has occurred." -> msg = "Revise su conexión de red"
+                        }
+                        errorMsg.postValue(msg)
+                    }
+                    else -> {
+                        //no usado
+                    }
+                }
+            }
         }
     }
 }

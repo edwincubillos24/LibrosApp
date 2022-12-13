@@ -1,32 +1,60 @@
 package com.edwinacubillos.librosapp.ui.miperfil
 
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import com.edwinacubillos.librosapp.R
+import com.edwinacubillos.librosapp.databinding.FragmentMiPerfilBinding
+import com.edwinacubillos.librosapp.firebase.model.Usuario
+import com.edwinacubillos.librosapp.ui.login.LoginActivity
 
 class MiPerfilFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = MiPerfilFragment()
-    }
+    private lateinit var miPerfilViewModel: MiPerfilViewModel
+    private lateinit var miPerfilBinding: FragmentMiPerfilBinding
 
-    private lateinit var viewModel: MiPerfilViewModel
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
+        miPerfilBinding = FragmentMiPerfilBinding.inflate(inflater, container, false)
+        miPerfilViewModel = ViewModelProvider(this)[MiPerfilViewModel::class.java]
+        val view = miPerfilBinding.root
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_mi_perfil, container, false)
-    }
+        miPerfilViewModel.cargarUsuario()
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MiPerfilViewModel::class.java)
-        // TODO: Use the ViewModel
+        val usuarioCargadoObserver = Observer<Usuario> { usuario ->
+            with(miPerfilBinding){
+                nombreTextView.text = usuario.nombre
+                correoTextView.text = usuario.correo
+                generoTextView.text = usuario.genero
+                generosFavoritosTextView.text = usuario.generosFavoritos
+            }
+        }
+
+        miPerfilViewModel.usuarioCargado.observe(viewLifecycleOwner, usuarioCargadoObserver)
+
+        miPerfilBinding.cerrarSesionButton.setOnClickListener {
+            miPerfilViewModel.cerrarSesion()
+        }
+
+        val errorMsgObserver = Observer<String> { errorMsg ->
+            Toast.makeText(requireContext(), errorMsg, Toast.LENGTH_SHORT).show()
+        }
+
+        miPerfilViewModel.errorMsg.observe(viewLifecycleOwner, errorMsgObserver)
+
+        val sesionCerradaObserver = Observer<Boolean>{
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+            startActivity(intent)
+        }
+
+        miPerfilViewModel.sesionCerrada.observe(viewLifecycleOwner, sesionCerradaObserver)
+
+        return view
     }
 
 }
