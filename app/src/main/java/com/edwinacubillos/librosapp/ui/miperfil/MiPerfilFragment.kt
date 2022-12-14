@@ -13,6 +13,7 @@ import com.edwinacubillos.librosapp.R
 import com.edwinacubillos.librosapp.databinding.FragmentMiPerfilBinding
 import com.edwinacubillos.librosapp.firebase.model.Usuario
 import com.edwinacubillos.librosapp.ui.login.LoginActivity
+import com.squareup.picasso.Picasso
 
 class MiPerfilFragment : Fragment() {
 
@@ -32,6 +33,7 @@ class MiPerfilFragment : Fragment() {
                 correoTextView.text = usuario.correo
                 generoTextView.text = usuario.genero
                 generosFavoritosTextView.text = usuario.generosFavoritos
+                Picasso.get().load(usuario.urlFoto).into(fotoImageView)
             }
         }
 
