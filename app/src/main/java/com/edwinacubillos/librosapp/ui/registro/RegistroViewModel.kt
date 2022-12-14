@@ -1,14 +1,20 @@
 package com.edwinacubillos.librosapp.ui.registro
 
+import android.graphics.Bitmap
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.edwinacubillos.librosapp.firebase.ResourceRemote
 import com.edwinacubillos.librosapp.firebase.UserRepository
 import com.edwinacubillos.librosapp.firebase.model.Usuario
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import emailValidator
 import kotlinx.coroutines.launch
 import passwordValidator
+import java.io.ByteArrayOutputStream
 
 class RegistroViewModel : ViewModel() {
 
@@ -22,7 +28,7 @@ class RegistroViewModel : ViewModel() {
         MutableLiveData<String>()
     }
 
-    fun validarCampos(nombre: String, correo: String, password: String, repPassword: String, genero: String, generosFavoritos: String) {
+    fun validarCampos(nombre: String, correo: String, password: String, repPassword: String, genero: String, generosFavoritos: String, fotoBitmap: Bitmap?) {
         if (nombre.isEmpty() || correo.isEmpty() || password.isEmpty() || repPassword.isEmpty())
             errorMsg.value = "Debe digitar todos los campos"
         else {
@@ -40,7 +46,10 @@ class RegistroViewModel : ViewModel() {
                             result.let { resourceRemote ->
                                 when (resourceRemote) {
                                     is ResourceRemote.Success -> {
-                                        crearUsuario(result.data, nombre, correo, genero, generosFavoritos)
+                                        if (fotoBitmap != null)
+                                            guardarFoto(result.data, nombre, correo, genero, generosFavoritos, fotoBitmap)
+                                        else
+                                            crearUsuario(result.data, nombre, correo, genero, generosFavoritos, null)
                                     }
                                     is ResourceRemote.Error -> {
                                         var msg = result.message
@@ -59,9 +68,35 @@ class RegistroViewModel : ViewModel() {
         }
     }
 
-    private fun crearUsuario(uid: String?, nombre: String, correo: String, genero: String, generosFavoritos: String) {
+    private fun guardarFoto(uid: String?, nombre: String, correo: String, genero: String, generosFavoritos: String, fotoBitmap: Bitmap) {
+        val baos = ByteArrayOutputStream()
+        fotoBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val data = baos.toByteArray()
+
+        val storageRef = FirebaseStorage.getInstance()
+        val fotoRef = storageRef.reference.child("usuarios").child(Firebase.auth.uid!!)
+        val uploadTask = fotoRef.putBytes(data)
+
+        val urlTask = uploadTask.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let {
+                    throw it
+                }
+            }
+            fotoRef.downloadUrl
+        }.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val urlFoto = task.result.toString()
+                Log.d("urlFoto", urlFoto)
+                crearUsuario(uid, nombre, correo, genero, generosFavoritos, urlFoto)
+            }
+        }
+
+    }
+
+    private fun crearUsuario(uid: String?, nombre: String, correo: String, genero: String, generosFavoritos: String, urlFoto: String?) {
         viewModelScope.launch {
-            val usuario = Usuario(uid = uid, nombre = nombre, correo = correo, genero = genero, generosFavoritos = generosFavoritos)
+            val usuario = Usuario(uid = uid, nombre = nombre, correo = correo, genero = genero, generosFavoritos = generosFavoritos, urlFoto = urlFoto)
             val result = userRepository.crearUsuario(usuario)
             result.let { resourceRemote ->
                 when (resourceRemote) {
