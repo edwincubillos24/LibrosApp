@@ -42,7 +42,6 @@ class RegistroActivity : AppCompatActivity() {
 
         registroViewModel.errorMsg.observe(this, errorMsgObserver)
 
-
         with(registroBinding) {
             registrarButton.setOnClickListener {
                 val nombre = nombreEditText.text.toString()

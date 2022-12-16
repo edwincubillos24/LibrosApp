@@ -5,11 +5,11 @@ import androidx.lifecycle.ViewModel
 
 class RegistroViewModel : ViewModel() {
 
-    val passwordsValidos: MutableLiveData<Boolean> by lazy{
+    val passwordsValidos: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
     }
 
-    val errorMsg: MutableLiveData<String> by lazy{
+    val errorMsg: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }
 

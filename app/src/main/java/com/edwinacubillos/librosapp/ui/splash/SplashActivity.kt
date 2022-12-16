@@ -1,9 +1,8 @@
 package com.edwinacubillos.librosapp.ui.splash
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.edwinacubillos.librosapp.R
+import androidx.appcompat.app.AppCompatActivity
 import com.edwinacubillos.librosapp.databinding.ActivitySplashBinding
 import com.edwinacubillos.librosapp.ui.login.LoginActivity
 import java.util.*
@@ -11,7 +10,7 @@ import kotlin.concurrent.timerTask
 
 class SplashActivity : AppCompatActivity() {
 
-    private lateinit var splashBinding : ActivitySplashBinding
+    private lateinit var splashBinding: ActivitySplashBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
