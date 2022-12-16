@@ -21,7 +21,7 @@ class NuevoLibroFragment : Fragment() {
 
         val nuevoLibroViewModel = ViewModelProvider(this)[NuevoLibroViewModel::class.java]
 
-        with(nuevoLibroBinding){
+        with(nuevoLibroBinding) {
             guardarButton.setOnClickListener {
                 val nombre = nombreEditText.text.toString()
                 val autor = autorEditText.text.toString()
@@ -40,9 +40,6 @@ class NuevoLibroFragment : Fragment() {
                 findNavController().navigate(NuevoLibroFragmentDirections.actionNavigationNuevoLibroToNavigationMisLibros(libro))
             }
         }
-
-
         return root
     }
-
 }

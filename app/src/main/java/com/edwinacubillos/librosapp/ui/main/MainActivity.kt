@@ -10,7 +10,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.edwinacubillos.librosapp.R
 import com.edwinacubillos.librosapp.databinding.ActivityMainBinding
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

@@ -16,7 +16,7 @@ class MisLibrosFragment : Fragment() {
     private lateinit var misLibrosBinding: FragmentMisLibrosBinding
     private val args: MisLibrosFragmentArgs by navArgs()
 
-    override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         misLibrosBinding = FragmentMisLibrosBinding.inflate(inflater, container, false)
         val root: View = misLibrosBinding.root
 
@@ -27,12 +27,10 @@ class MisLibrosFragment : Fragment() {
             println(libro.nombre)
         }
 
-
         misLibrosBinding.nuevoLibroButton.setOnClickListener {
             findNavController().navigate(MisLibrosFragmentDirections.actionNavigationMisLibrosToNuevoLibroFragment())
         }
 
         return root
     }
-
 }
