@@ -25,6 +25,5 @@ class MisLibrosViewModel : ViewModel() {
         GlobalScope.launch {
             misLibrosRepository.borrarLibro(libro)
         }
-
     }
 }

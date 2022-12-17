@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,7 +18,7 @@ class LibreriaFragment : Fragment() {
     private lateinit var libreriaAdapter: LibreriaAdapter
     private var libreriaList: ArrayList<Book> = ArrayList()
 
-    override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         libreriaBinding = FragmentLibreriaBinding.inflate(inflater, container, false)
         val root: View = libreriaBinding.root
@@ -28,7 +27,7 @@ class LibreriaFragment : Fragment() {
 
         libreriaAdapter = LibreriaAdapter(libreriaList)
 
-        libreriaBinding.libreriaRecyclerView.apply{
+        libreriaBinding.libreriaRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@LibreriaFragment.requireContext())
             adapter = libreriaAdapter
             setHasFixedSize(false)

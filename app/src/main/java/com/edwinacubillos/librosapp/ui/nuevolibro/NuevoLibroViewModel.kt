@@ -12,12 +12,12 @@ class NuevoLibroViewModel : ViewModel() {
 
     val librosRepository = LibrosRepository()
 
-    val errorMsg: MutableLiveData<String> by lazy{
+    val errorMsg: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }
 
     fun validarDatos(nombre: String, autor: String, paginas: Int, puntaje: Double, generos: String) {
-        if (nombre.isEmpty() || autor.isEmpty() || paginas == 0){
+        if (nombre.isEmpty() || autor.isEmpty() || paginas == 0) {
             errorMsg.value = "Debe digitar el nombre, el autor y el número de páginas"
         } else {
             guardarLibro(nombre, autor, paginas, puntaje, generos)
@@ -31,7 +31,4 @@ class NuevoLibroViewModel : ViewModel() {
             librosRepository.guardarLibro(libro)
         }
     }
-
-
-
 }

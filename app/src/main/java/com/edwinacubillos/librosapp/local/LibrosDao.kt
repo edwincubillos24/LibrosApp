@@ -16,5 +16,4 @@ interface LibrosDao {
 
     @Delete
     fun borrarLibro(libro: Libro)
-
 }

@@ -11,7 +11,7 @@ class LibrosRepository {
         librosDao.guardarLibro(libro)
     }
 
-    fun cargarLibros() : ArrayList<Libro> {
+    fun cargarLibros(): ArrayList<Libro> {
         val librosDao: LibrosDao = LibrosApp.database.LibrosDao()
         val librosList: ArrayList<Libro> = librosDao.cargarLibros() as ArrayList<Libro>
         return librosList
@@ -20,6 +20,5 @@ class LibrosRepository {
     fun borrarLibro(libro: Libro) {
         val librosDao: LibrosDao = LibrosApp.database.LibrosDao()
         librosDao.borrarLibro(libro)
-
     }
 }

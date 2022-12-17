@@ -42,8 +42,6 @@ class NuevoLibroFragment : Fragment() {
                 if (terrorCheckBox.isChecked) generos = generos + " Terror"
 
                 nuevoLibroViewModel.validarDatos(nombre, autor, paginas, puntaje, generos)
-
-                //    findNavController().navigate(NuevoLibroFragmentDirections.actionNavigationNuevoLibroToNavigationMisLibros(libro))
             }
         }
 

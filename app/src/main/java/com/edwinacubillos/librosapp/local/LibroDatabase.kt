@@ -6,6 +6,6 @@ import androidx.room.RoomDatabase
 @Database(entities = [Libro::class], version = 1, exportSchema = false)
 abstract class LibroDatabase : RoomDatabase() {
 
-    abstract fun LibrosDao() : LibrosDao
+    abstract fun LibrosDao(): LibrosDao
 
 }

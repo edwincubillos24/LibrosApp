@@ -13,13 +13,13 @@ object NYTimes {
         .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         .build()
 
-    val retrofit : ApiService = Retrofit.Builder()
+    val retrofit: ApiService = Retrofit.Builder()
         .baseUrl(urlAPI)
         .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpClient)
         .build()
-        .run{
-            create (ApiService::class.java)
+        .run {
+            create(ApiService::class.java)
         }
 
 }
